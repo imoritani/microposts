@@ -27,7 +27,7 @@ class UsersController < ApplicationController
       flash[:info] = "プロフィールを編集しました."
       redirect_to @user
     else
-      
+      render 'edit'
     end
   end
   
