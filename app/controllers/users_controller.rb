@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only:[:show, :edit, :update]
-
+  
   def new
     @user = User.new
   end
@@ -17,9 +17,17 @@ class UsersController < ApplicationController
   
   
   def show
+    if validPage? == false
+      render "errors/not_found"
+    end
+    
   end
 
   def edit
+    if isMyPage == false
+      flash[:danger] = "Access denied :  #{request.url}."
+      redirect_to edit_user_path(current_user)
+    end
   end
   
   def update
@@ -34,11 +42,27 @@ class UsersController < ApplicationController
   
 private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :place)
   end
   
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find_by_id(params[:id])
   end
-
+  
+  def isMyPage
+    if validPage? == false
+      return false
+    end
+    
+    if current_user.id == @user.id
+      return true
+    else
+      return false
+    end
+  end
+  
+  def validPage?
+    !@user.nil?
+  end
+  
 end
