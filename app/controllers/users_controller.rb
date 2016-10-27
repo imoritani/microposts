@@ -20,11 +20,12 @@ class UsersController < ApplicationController
     if validPage? == false
       render "errors/not_found"
     end
-    
   end
 
   def edit
-    if isMyPage == false
+    if logged_in? == false # precondition
+      redirect_to login_path
+    elsif isMyPage == false # allow user to edit own data.
       flash[:danger] = "Access denied :  #{request.url}."
       redirect_to edit_user_path(current_user)
     end
@@ -50,10 +51,12 @@ private
   end
   
   def isMyPage
+    # check user id is available.
     if validPage? == false
       return false
     end
     
+    # check target user id.
     if current_user.id == @user.id
       return true
     else
