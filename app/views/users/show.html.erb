@@ -1,7 +1,7 @@
 <h1>
     <%= gravatar_for @user %>
     <%= @user.name %>
-    <% unless @user.place.nil? %>
+    <% unless @user.place.nil? || @user.place.empty? %>
         @<%= @user.place %>
     <% end %>   
     
