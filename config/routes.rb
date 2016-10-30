@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   
   resources :users
   resources :microposts
+  resources :relationships, only: [:create, :destroy]
 
   get '*anything' => "errors#routing_error"
   
