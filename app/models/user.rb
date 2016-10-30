@@ -6,7 +6,9 @@ class User < ActiveRecord::Base
             format:{with: VALID_EMAIL_REGEX},
             uniqueness: {case_sensitive: false}
     validates :place, length:{maximum: 255}
+
+    # length: http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
+    validates :password, presence: true, length:{maximum:72}, confirmation:true, on: :updatePassword
     has_secure_password
-    
     has_many :microposts
 end

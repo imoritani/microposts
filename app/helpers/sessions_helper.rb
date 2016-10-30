@@ -8,7 +8,7 @@ module SessionsHelper
    end
    
    def store_location
-    session[:forward_url] = request.url if request.get
+    session[:forwarding_url] = request.url if request.get?
    end
     
 end
