@@ -9,8 +9,15 @@ Rails.application.routes.draw do
   get 'users/:id/password', to: "users#password", as: "chg_pwd"
   post 'users/:id/password', to: "users#updatePassword"
   patch 'users/:id/password', to: "users#updatePassword"
+
   
-  resources :users
+  
+  resources :users do
+    member do
+      get :followings, :followers
+    end
+  end
+  
   resources :microposts
   resources :relationships, only: [:create, :destroy]
 

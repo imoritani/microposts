@@ -1,0 +1,25 @@
+<div class="row">
+ <aside class="col-md-3">
+    <section class="user_info">
+        <%= link_to gravatar_for(@user, size: 50), @user %>
+        <span class="user"><%= link_to @user.name, @user %></span>
+    </section>
+</aside>
+<div class="col-md-9">
+    <h1> Followers </h1>
+</div>
+</div>
+<% if @users.nil? || @users.any? %>
+    <% rowUsers = @users.each_slice(3).to_a %>
+    <% rowUsers.each do |arrayUsers| %>
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <% arrayUsers.each do |user| %>
+                <%= render partial: 'users/user', locals: { user: user } %>
+            <% end %>
+        </div>
+    <% end %>
+<% else %>
+    <h1> Follow されているユーザーはいません. </h1>
+<% end %>

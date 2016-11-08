@@ -1,0 +1,10 @@
+<aside class="col-md-3">
+  <section class="user_info">
+    <%= link_to gravatar_for(user, size: 50), user %>
+    <span class="user"><%= link_to user.name, user %></span>
+    <% if user.microposts.any? %>
+      <span class="content"><%= user.microposts.order(created_at: :desc).first.content %></span>
+    <% end %>  
+  </section>
+</aside>
+

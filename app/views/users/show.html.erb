@@ -6,8 +6,11 @@
         <%= @user.name %>
         <% unless @user.place.nil? || @user.place.empty? %>
             @<%= @user.place %>
-        <% end %>   
+        <% end %>
       </h1>
+      <br>
+      <%= link_to "Follow",   followings_user_path(@user) if logged_in? %>
+      <%= link_to "Follower", followers_user_path(@user) if logged_in? %>
     </section>
   </aside>
   <div class="col-md-8">

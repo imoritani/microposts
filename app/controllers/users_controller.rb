@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only:[:edit, :update, :password, :updatePassword]
-  before_action :set_user, only:[:show, :edit, :update, :password, :updatePassword]
+  before_action :logged_in_user, only:[:edit, :update, :password, :updatePassword, :followings, :followers]
+  before_action :set_user, only:[:show, :edit, :update, :password, :updatePassword, :followings, :followers]
 
   def new
     @user = User.new
@@ -59,6 +59,15 @@ class UsersController < ApplicationController
     end
   end
 
+
+  def followings
+    @users = @user.followingUsers()
+  end
+  
+  def followers
+    @users = @user.followerUsers()
+  end
+  
 private
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :place)
